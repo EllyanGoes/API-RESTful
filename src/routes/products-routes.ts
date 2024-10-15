@@ -8,6 +8,6 @@ const productsController = new ProductsController()
 //Passando a referência da função de productsController
 productsRoute.get("/", productsController.index)
 
-productsRoute.post("/", productsController.create)
+productsRoute.post("/", myMiddleware, productsController.create)
 
 export { productsRoute }
