@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { AppError } from "../utils/AppError"
+import { AppError } from "../utils/app-error"
 
 class ProductsController {
   /*
@@ -22,6 +22,24 @@ class ProductsController {
 
   create(request: Request, response: Response) {
     const { name, price } = request.body
+
+    if (!name) {
+      throw new AppError("Nome é obrigatórios")
+    }
+
+    if (name.trim().length < 6) {
+      throw new AppError(
+        "O nome do produto precisa ter pelo menos 6 caracteres"
+      )
+    }
+
+    if (!price) {
+      throw new AppError("Preço é Obrigatório")
+    }
+
+    if (price < 0) {
+      throw new AppError("Não aceita números negativos")
+    }
 
     // throw new Error("Erro ao tentar criar um produto")
 
